@@ -1,0 +1,26 @@
+# ---------------------------------------------------------------------------
+#  Render Deploy Workflow  – RequestHub
+#  • Triggers on pushes to `main` (and manual dispatch)
+#  • Calls Render’s deploy‑hook URL stored in repo secret
+#  • Keeps free‑tier hosting in sync with the latest code
+# ---------------------------------------------------------------------------
+    name: Deploy to Render
+
+    on:
+      workflow_dispatch:
+      push:
+        branches: [main]
+    
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Trigger Render deploy
+            env:
+              RENDER_WEB_SERVICE_HOOK: ${{ secrets.RENDER_WEB_SERVICE_HOOK }}
+            run: |
+              if [ -z "$RENDER_WEB_SERVICE_HOOK" ]; then
+                echo "Render deploy‑hook secret missing." && exit 1
+              fi
+              curl -fsSL -X POST "$RENDER_WEB_SERVICE_HOOK"
+    
