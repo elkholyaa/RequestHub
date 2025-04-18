@@ -1,0 +1,18 @@
+diff --git a/routes/web.php b/routes/web.php
+index abcdef0..1234567 100644
+--- a/routes/web.php
++++ b/routes/web.php
+@@ -4,6 +4,11 @@
+ Route::get('/', function () {
+     return view('welcome');
+ });
+ 
++/* ───────── Requests CRUD ───────── */
++Route::middleware('auth')->group(function () {
++    Route::resource('requests', \App\Http\Controllers\RequestController::class);
++});
++
+ /* Admin dashboard group (RBAC) */
+ Route::middleware(['auth', 'role:administrator'])
+     ->prefix('admin')
+     ->group(function () {
