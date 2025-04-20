@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 
 /* ───────── Dashboard (post‑login) ─────────
-   Breeze’s login controller redirects here.
+   Breeze's login controller redirects here.
    We forward users to their Requests list.
 */
 Route::get('/dashboard', fn () => redirect()->route('requests.index'))
@@ -26,7 +26,8 @@ Route::middleware('auth')->group(function () {
 });
 
 /* ───────── Admin dashboard (RBAC) ───────── */
-Route::middleware(['auth', 'role:administrator'])
+Route::middleware('auth')
+    ->middleware('role:administrator')
     ->prefix('admin')
     ->group(function () {
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
