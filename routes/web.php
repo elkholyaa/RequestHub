@@ -33,5 +33,17 @@ Route::middleware('auth')
         Route::view('/', 'admin.dashboard')->name('admin.dashboard');
     });
 
+/* ───────── Debug route to test request form submission ───────── */
+Route::get('/debug-request-form', function () {
+    return view('requests.debug');
+})->middleware('auth')->name('debug.request.form');
+
+Route::post('/debug-request-store', function (\Illuminate\Http\Request $request) {
+    return [
+        'success' => true,
+        'data' => $request->all()
+    ];
+})->middleware('auth')->name('debug.request.store');
+
 /* ───────── Breeze auth routes (login, register, password…) ───────── */
 require __DIR__.'/auth.php';
