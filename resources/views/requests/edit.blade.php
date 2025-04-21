@@ -75,7 +75,7 @@
 
         <div class="pt-4">
             <button type="submit"
-                    class="w-full bg-blue-600 text-white px-4 py-2 rounded">
+                    class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                 Update Request
             </button>
         </div>

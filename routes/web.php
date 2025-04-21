@@ -45,5 +45,9 @@ Route::post('/debug-request-store', function (\Illuminate\Http\Request $request)
     ];
 })->middleware('auth')->name('debug.request.store');
 
+/* ───────── Test route to verify our fixes ───────── */
+Route::get('/test-fix', [\App\Http\Controllers\FixController::class, 'test'])
+    ->name('test.fix');
+
 /* ───────── Breeze auth routes (login, register, password…) ───────── */
 require __DIR__.'/auth.php';
